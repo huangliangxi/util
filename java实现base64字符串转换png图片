@@ -1,0 +1,6 @@
+
+BASE64Decoder decoder = new BASE64Decoder();
+FileOutputStream write = new FileOutputStream(new File("d://123.png"));
+byte[] decoderBytes = decoder.decodeBuffer(srcPath.split(",")[1]);
+write.write(decoderBytes);
+write.close();
