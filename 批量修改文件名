@@ -1,0 +1,52 @@
+public   static   void   main(String[]   args)   {
+        int aa=0;
+        int bb=0;
+        //实验报告存放路径
+        File file1=new File("C:\\Users\\zf\\Documents\\Tencent Files\\3007239312\\FileRecv\\MobileFile\\黄洁纯");
+
+        String [] fileNameList1 = file1.list();  //用于存放文件底下所有子文件名的数组
+
+        for (int a = 0; a < fileNameList1.length; a++) {
+            aa+=1;
+            File file2=new File("C:\\Users\\zf\\Documents\\Tencent Files\\3007239312\\FileRecv\\MobileFile\\黄洁纯\\"+fileNameList1[a]);
+
+            String [] fileNameList2 = file2.list();  //用于存放文件底下所有子文件名的数组
+            //先提取原文件名中有效的信息
+            for (int i = 0; i < fileNameList2.length; i++) {
+                String oleFileName = fileNameList2[i];
+                int indexOf = oleFileName.indexOf(".");
+                String fileName = oleFileName.substring(0, indexOf);
+                String fileNameEnd = oleFileName.substring(indexOf, oleFileName.length());
+                System.out.println(fileName+"----------"+fileNameEnd);
+//                System.out.println(fileName.endsWith("(1)"));
+                if (fileName.endsWith("(1)")) {
+                    String newFileName = fileName.substring(0, fileName.length() - 3);
+                    System.out.println(newFileName);
+
+                    File toBeRenamed = new File("C:\\Users\\zf\\Documents\\Tencent Files\\3007239312\\FileRecv\\MobileFile\\黄洁纯\\"+fileNameList1[a]+"\\"+oleFileName);
+                    //检查要重命名的文件是否存在
+                    if (!toBeRenamed.exists()) {
+                        System.out.println("File does not exist: "+i);
+//                        return;
+                        continue;
+                    }
+
+                    //修改文件名
+                    File newFile = new File("C:\\Users\\zf\\Documents\\Tencent Files\\3007239312\\FileRecv\\MobileFile\\黄洁纯\\"+fileNameList1[a]+"\\"+newFileName+fileNameEnd);
+                    if (toBeRenamed.renameTo(newFile)) {
+//                        System.out.println("File renamed success!!.");
+                        System.out.println("删除原文件:"+toBeRenamed.delete());
+                        bb+=1;
+                    } else {
+                        System.out.println("Error renmaing file");
+                    }
+                }
+
+            }
+        }
+
+
+        System.out.println("aa:"+aa);
+        System.out.println("bb:"+bb);
+
+    }
